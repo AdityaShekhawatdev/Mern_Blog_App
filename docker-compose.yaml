@@ -36,7 +36,13 @@ services:
    - ./nginx.conf:/etc/nginx/nginx.conf
   depends_on:
    - frontend
-   - backend     
+   - backend    
+  networks:
+   - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
  mongo-data:   

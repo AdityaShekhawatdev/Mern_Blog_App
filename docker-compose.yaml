@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
  backend:
   build: ./backend
@@ -11,21 +10,25 @@ services:
    - PORT=5001
   depends_on:
    - mongodb
+  networks:
+   - app-network
 
  frontend:
   build: ./frontend
   container_name: blog_frontend
   expose:
-  - "3000"
+   - "3000"
   depends_on:
    - backend
+  networks:
+   - app-network
 
  mongodb:
   image: mongo:7
-  ports:
-   - "27017:27017"
   volumes:
    - mongo-data:/data/db
+  networks:
+   - app-network
 
  nginx:
   image: nginx:alpine
@@ -36,13 +39,13 @@ services:
    - ./nginx.conf:/etc/nginx/nginx.conf
   depends_on:
    - frontend
-   - backend    
+   - backend
   networks:
    - app-network
 
 networks:
-  app-network:
-    driver: bridge
+ app-network:
+  driver: bridge
 
 volumes:
- mongo-data:   
+ mongo-data:

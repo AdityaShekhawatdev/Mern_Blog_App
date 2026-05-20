@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://backend:5001',
+        target: 'http://blog_backend:5001',
         changeOrigin: true,
       }
     }

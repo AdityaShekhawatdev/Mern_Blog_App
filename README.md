@@ -117,4 +117,53 @@ PORT=5000
   - Mongoose
   - CORS
 
+# DevOps & Deployment
+
+## Containerization (Docker)
+
+- **Multi-stage build** (frontend) 
+ - Stage 1 -> Node compiles React  
+ - Stage 2 -> Nginx serves static files 
+ - Final image size ~20MB vs ~300MB single-stage.
+- **`.dockerignore`** — `node_modules/` and build artifacts excluded 
+  to keep image clean and build fast.
+- **Docker Compose** — single command to spin up all 3 services 
+  (frontend, backend, mongodb) on an internal network.
+
+
+### Run Locally
+
+```bash
+
+# Fresh build
+docker-compose up --build
+
+# Run in background
+docker-compose up -d --build
+
+# Check running containers
+docker ps
+
+# View logs
+docker logs blog_backend -f
+
+```
+
+
+
+## Reverse Proxy (Nginx)
+
+- **Single entry point** — only port 80 is exposed. Backend  
+  and MongoDB are not publicly accessible.
+- **API proxying** — `/api/` requests are forwarded to `blog_backend:5001` 
+  internally via `proxy_pass`.
+- **React Router fix** — `try_files $uri $uri/ /index.html` prevents 
+  404 on page refresh.
+- Config location: `frontend/nginx.conf`
+
+
+
+
+
+
 

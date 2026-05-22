@@ -20,11 +20,10 @@ jobs:
         username: ${{secrets.EC2_USER}}
         key: ${{secrets.EC2_SSH_KEY}}
         script: |
-
-        cd ~/blog_app
-        git pull origin main
-        docker compose down 
-        docker compose up --build -d
-        docker image prune -f   
+             cd ~/blog_app
+             git pull origin main
+             docker compose down 
+             docker compose up --build -d
+             docker image prune -f   
 
 

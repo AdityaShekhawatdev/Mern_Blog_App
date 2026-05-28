@@ -1,29 +1,29 @@
 name: CI/CD Pipeline for Mern Blog app
 
 on:
- push:
-   branches:
-    - main
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Executing remote ssh commands to deploy
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{secrets.EC2_HOST}}
-        username: ${{secrets.EC2_USER}}
-        key: ${{secrets.EC2_SSH_KEY}}
-        script: |
-             cd ~/Mern_Blog_App
-             git pull origin main
-             docker compose down 
-             docker compose up --build -d
-             docker image prune -f   
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/Mern_Blog_App
+            git pull origin main
+            docker compose down
+            docker compose up --build -d
+            docker image prune -f
 
 

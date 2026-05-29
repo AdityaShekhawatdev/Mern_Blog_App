@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-app
+  labels:
+    app: mongodb-app
+spec:
+  replicas: {{ .Values.mongodb.replicaCount}}
+  selector:
+    matchLabels:
+      app: mongodb-app
+  template:
+    metadata:
+      labels:
+        app: mongodb-app
+    spec:
+      containers:
+       - name: mongodb-app
+         image: "{{ .Values.mongodb.image.repository}}:{{ .Values.mongodb.image.tag}}"
+         imagePullPolicy: {{ .Values.mongodb.image.pullPolicy}}
+         ports:
+          - containerPort: {{ .Values.mongodb.service.port}}
+         resources:
+           requests:
+             memory:  {{ .Values.mongodb.resources.requests.memory}}
+             cpu: {{ .Values.mongodb.resources.requests.cpu}} 
+           limits:
+             memory: {{ .Values.mongodb.resources.limits.memory}}
+             cpu: {{ .Values.mongodb.resources.limits.cpu}}        

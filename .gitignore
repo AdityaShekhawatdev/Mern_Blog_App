@@ -10,3 +10,4 @@ pnpm-debug.log*
 dist/
 build/
 .DS_Store
+mern-blog-app/values.yaml

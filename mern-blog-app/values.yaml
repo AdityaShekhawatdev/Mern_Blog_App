@@ -43,7 +43,6 @@ backend:
   env:
     nodeEnv: production
     port: 5001
-    MONGODB_URI: "mongodb://mongodb-service:27017/blog-app"
     
 
 
@@ -67,3 +66,7 @@ frontend:
     limits:
       memory: "256Mi"
       cpu: "250m"
+
+
+secret:
+  MONGODB_URI: "mongodb://mongodb-service:27017/blog-app"     

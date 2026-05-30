@@ -22,7 +22,10 @@ spec:
         - containerPort: {{ .Values.backend.service.port }}
         env:
         - name: MONGODB_URI
-          value: "{{ .Values.backend.env.MONGODB_URI}}"
+          valueFrom:
+            secretKeyRef: 
+              name: mern-blog-app-secrets
+              key: MONGODB_URI
         - name: NODE_ENV
           value: "{{ .Values.backend.env.nodeEnv }}"
         - name: PORT

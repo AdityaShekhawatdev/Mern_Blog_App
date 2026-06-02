@@ -55,7 +55,7 @@ frontend:
     pullPolicy: Always
 
   service:
-    type: NodePort
+    type: LoadBalancer
     port: 80
     nodePort: 30002
 
